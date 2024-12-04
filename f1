@@ -1,0 +1,73 @@
+w=input("enter yes or no:")
+while w=="yes":
+    r=input("enter the origin of measurement kelvin or celsius or farenheit:")
+    t=int(input("enter a input temperature value:"))
+    if r=="celsius" or r=="CELSIUS":
+        f=t*(9/5)+32
+        k=t+273.15
+        print("The celsius temperature has been converted into farenheit temperature as:",f)
+        print("The celsius temperature has been converted into kelvin temperature as:",k)
+    elif r=="farenheit" or r=="FARENHEIT":
+        c=(t-32)*(5/9)
+        k=(t-32)*(5/9)+273.15
+        print("The farenheit temperature has been converted into celsius temperature as:",c)
+        print("The farenheit temperature has been converted into kelvin temperature as:",k)
+    elif r=="kelvin" or r=="KELVIN":
+        c=t-273.15
+        f=(t-273.15)*(9/5)+32
+        print("The kelvin temperature has been converted into celsisus temperature as:",c)
+        print("The kelvin temperature has been converted into farenheit temperature as:",f)
+    else:
+        print("enter a valid input temperature value")
+    w=input("enter yes to continue or no to stop:")
+def celsius_convert(temp):
+    fahrenheit=temp*(9/5)+32
+    kelvin=temp+273.15
+    return fahrenheit,kelvin
+def fahrenheit_convert(temp):
+    celsius=(temp-32)*(5/9)
+    kelvin=(temp-32)*(5/9)+273.15
+    return celsius,kelvin
+def kelvin_convert(temp):
+    celsius=temp-273.15
+    fahrenheit=(temp-273.15)*(9/5)+32
+    return celsius,fahrenheit
+def temp_change(scale,temp):
+    if scale=="celsius":
+        f,k=celsius_convert(temp)
+        return f"The celsius temperature has been converted into fahrenheit temperature {f:.2f}\nThe celsius temperature has been converted into kelvin temperature {k:.2f}"
+    elif scale=="fahrenheit":
+        c,k=fahrenheit_convert(temp)
+        return f"The fahrenheit temperature has been converted into celsius temperature {c:.2f}\nThe fahrenheit tempreatre has been converted into kelvin temperature {k:.2f}"
+    elif scale=="kelvin":
+        c,f=kelvin_convert(temp)
+        return f"The kelvin temperature has been converted into celsius temperature {c:.2f}\nThe kelvin temperature has been converted into fahrenheit temperature {f:.2f}"
+    else:
+        raise ValueError("Please enter a valid temperature scale celsius or fahrenheit or kelvin")
+def valid_input():
+    while True:
+        scale=input("enter a valid temperature scale(celsius, fahrenheit, kelvin):").strip().lower()
+        if scale not in ["celsius","fahrenheit","kelvin"]:
+            print("Please enter a valid temperature Scale")
+            continue
+        try:
+            temp=float(input("enter a valid temperature value:").strip())
+        except ValueError:
+            print("Please enter a numeric value for conversion")
+            continue
+        return scale,temp
+def main():
+    print("Welcome to the temperature conversion program")
+    while True:
+        scale,temp=valid_input()
+        try:
+            result=temp_change(scale,temp)
+            print(result)
+        except ValueError as e:
+            print(e)
+        ano_input=input("do you want to continue enter either yes or no").strip().lower()
+        if ano_input!="yes":
+            print("Thank you for using the temperature conversion program")
+            break
+if __name__=="__main__":
+    main()
